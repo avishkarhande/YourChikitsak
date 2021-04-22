@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+            
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="widget-profile pro-widget-content">
+                        <div class="profile-info-widget">
+                            <a href="#" class="booking-doc-img">
+                                <img src="{{docD.dp.url}}" alt="User Image">
+                            </a>
+                            <div class="profile-det-info">
+                                <h3>{{devD.name}}</h3>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-widget">
+                        <nav class="dashboard-menu">
+                            <ul>
+                                <li class="active">
+                                    <a href="{% url 'doctor-profile-settings' %}">
+                                        <i class="fas fa-user-cog"></i>
+                                        <span>Your Dashboard</span>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a href="{% url 'appointments' %}">
+                                        <i class="fas fa-calendar-check"></i>
+                                        <span>Appointments</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'my-patients' %}">
+                                        <i class="fas fa-user-injured"></i>
+                                        <span>My Patients</span>
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href=" url 'doctor-change-password' ">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Change Password</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /Profile Sidebar -->
+                
+            </div>
+            
+            <div class="col-md-7 col-lg-8 col-xl-9">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Profile Photo</h4>
+                        <div class="row form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="change-avatar">
+                                        <div class="profile-img">
+                                            <img src="{{docD.dp.url}}" alt="User Image">
+                                        </div>
+                                        <form method = "POST" action = "{% url 'updatephoto' %}" enctype="multipart/form-data" >
+                                            {% csrf_token %}
+                                        <div class="upload-img">
+                                            <div class="change-photo-btn">
+                                                <span><i class="fa fa-upload"></i> Choose Photo</span>
+                                                
+                                                <input type="file" class="upload" name='picture'>
+                                                
+                                                </form>
+                                            </div>
+                                            <input type="submit" value="Update">
+                                            <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+
+                <form action = "{% url 'updateDocDetails' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <!-- Basic Information -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Basic Information</h4>
+                        <div class="row form-row">
+                            
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="" value="{{docD.user.username}}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" value="{{docD.user.email}}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" readonly value="{{devD.name}}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="text" name="phone" class="form-control" value="{{docD.phone}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select name="gender" value="{{docD.gender}}" class="form-control select">
+                                        <option>Select</option>
+                                        {% if docD.gender == "Male" %}<option selected="selected">Male</option>{% else %}<option>Male</option>{% endif %}
+                                        {% if docD.gender == "Female" %}<option selected="selected">Female</option>{% else %}<option>Female</option>{% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /Basic Information -->
+                
+                <!-- About Me -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">About Me</h4>
+                        <div class="form-group mb-0">
+                            <label>Biography</label>
+                            <textarea class="form-control" name="about" rows="5" value="">{{docD.about}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- /About Me -->
+                
+                <!-- Clinic Info -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Clinic Info</h4>
+                        <div class="row form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Clinic Name</label>
+                                    <input name="clinic_name" type="text" value="{{docD.clinic_name}}" class="form-control">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /Clinic Info -->
+
+                <!-- Contact Details -->
+							<div class="card contact-card">
+								<div class="card-body">
+									<h4 class="card-title">Contact Details</h4>
+									<div class="row form-row">
+										
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">State / Province</label>
+												<input type="text" value="{{docD.state}}" class="form-control" name="state">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Country</label>
+												<input type="text" value="{{docD.country}}" class="form-control" name="country">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Contact Details -->
+
+                <!-- Degree Details -->
+							<div class="card contact-card">
+								<div class="card-body">
+									<h4 class="card-title">Degree Details</h4>
+									<div class="row form-row">
+										
+
+										<div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="change-avatar">
+                                                    <div class="profile-img">
+                                                        {% if isdegree == 1 %}
+                                                        <a href="{{docD.degree.url}}" target="_blank"><img src="{{docD.degree.url}}" alt="User Image"></a>
+                                                        {% endif %}
+                                                    </div>
+                                                    
+                                                    <div class="upload-img">
+                                                        <div class="change-photo-btn">
+                                                            <span><i class="fa fa-upload"></i> Choose Photo</span>
+                                                            
+                                                            <input type="file" class="upload" name='degree'>
+                                                            
+                                                        </div>
+                                                        <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                                    </div>
+                                                </div>
+									</div>
+								</div>
+							</div>
+							<!-- /Degree Details -->
+                
+                
+                <!-- Pricing -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Fees (in &#8377;)</h4>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                
+                                <input type="text" value="{{docD.price}}" name="price" class="form-control" placeholder="Enter in : &#8377; ">
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+                <!-- /Pricing -->
+                
+                <!-- Services and Specialization -->
+                <div class="card services-card">
+                    <div class="card-body">
+                        <h4 class="card-title">Services and Specialization</h4>
+                        <div class="form-group">
+                            <label>Services</label>
+                            <input type="text" data-role="tagsinput" value="{{docD.services}}" class="input-tags form-control" placeholder="Enter Services" name="services" id="services">
+                            <small class="form-text text-muted">Note : Enter values Separted by ,</small>
+                        </div> 
+                        <div class="form-group mb-0">
+                            <label>Specialization </label>
+                            <input class="input-tags form-control" value="{{docD.Specialization}}" name="specialization" type="text" data-role="tagsinput" placeholder="E.g Children Care,Dental Care" name="specialist" value="" id="specialist">
+                            <small class="form-text text-muted">Note : Type & Press  enter to add new specialization</small>
+                        </div> 
+                    </div>              
+                </div>
+                <!-- /Services and Specialization -->
+
+                
+
+             
+                
+            
+               
+                
+               
+                
+                <div class="submit-section submit-btn-bottom">
+                    <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                </div>
+            </form>
+
+                <!-- Work -->
+                <div class="card services-card">
+                    <div class="card-body">
+                        <h4 class="card-title">Work and Experience</h4>
+                        <form action = '{% url 'add-work' %}' method = "POST">
+                            {% csrf_token %}
+                        <div class="form-group">
+                            <label>Organisation Name</label>
+                            <input type="text" data-role="tagsinput"  class="input-tags form-control" placeholder="Enter Name of Organisation" name="hospital" id="services">
+                        </div> 
+                        <div class="row form-row">
+										
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Start Date (MM/YYYY)</label>
+                                    <input type="text"placeholder="For E.g 01/2020" class="form-control" name="start">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">End Date (MM/YYYY)</label>
+                                    <input type="text" placeholder="For E.g 04/2020" class="form-control" name="end">
+                                </div>
+                            </div>
+                        </div> 
+                        
+                     
+                    </div>              
+                </div>
+                <!-- /Services and Specialization -->
+                <div class="submit-section submit-btn-bottom">
+                    <button type="submit" class="btn btn-primary submit-btn">Save Work and Experience</button>
+                </div>
+            </form>
+                
+                {% if work %}
+                <div class="card services-card">
+                    <div class="card-body">
+                        <h4 class="card-title">Work and Experience</h4>
+                        <table>
+                            <tr>
+                              <th>Organisation</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th></th>
+                            </tr>
+                            {% for w in work %}
+                            <tr>
+                              <td>{{w.hospital}}</td>
+                              <td>{{w.start}}</td>
+                              <td>{{w.end}}</td>
+                            </tr>
+                            {% endfor %}
+                            
+                          </table>
+                    </div>              
+                </div>
+               {% endif %}
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}

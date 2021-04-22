@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            
+            
+            <div class="col-md-12 col-lg-12 col-xl-12">
+
+                
+
+                
+                <!-- Basic Information -->
+                <form action = "{% url 'addmeeting' docD.user.username  %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Select Appointment</h4>
+                        <div class="row form-row">
+                            
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    
+                                    <label>Select Date <span class="text-danger">*</span></label>
+                                    <input type="date" name = "date" value = "{{date}}" class="form-control"   >
+
+                                
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <br>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Available Slots</label>
+                                    <select name="slot"  class="form-control select" required>
+                                        <option selected="selected">Select</option>
+                                        {% for slot in availableSlots %}
+                                        <option name = "slot">{{slot}}</option>
+                                        {% endfor %}
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- /Basic Information -->
+                
+            
+
+                
+                
+                
+                
+                
+                <div class="submit-section submit-btn-bottom">
+                    <button type="submit" class="btn btn-primary submit-btn">Fix Slot</button>
+                </div>
+            </form>
+            
+                
+                
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}

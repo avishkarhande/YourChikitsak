@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .h4 {
+        background-color: #28a745;
+        padding: 5px;
+        color: #fff;
+    }
+</style>
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+             <!-- Profile Sidebar -->
+             <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                <div class="profile-sidebar">
+                    <div class="widget-profile pro-widget-content">
+                        <div class="profile-info-widget">
+                            <a href="#" class="booking-doc-img">
+                                <img src="{{patient.dp.url}}" alt="User Image">
+                            </a>
+                            <div class="profile-det-info">
+                                <h3>{{patient.userD.name}}</h3>
+                                <div class="patient-details">
+                                    <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patient.state}}, {{patient.country}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-widget">
+                        <nav class="dashboard-menu">
+                            <ul>
+                                <li >
+                                    <a href="#">
+                                        <i class="fas fa-columns"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="{% url 'patient-appointment' %}">
+                                        <i class="fas fa-lock"></i>
+                                        <span>My Appointments</span>
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="change-password.html">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Change Password</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /Profile Sidebar -->
+
+            
+            <div class="col-md-7 col-lg-8 col-xl-9">
+
+                
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="mb-4">Your Appoinments</h4>
+                        <div class="appointment-tab">
+                        
+                            <!-- Appointment Tab -->
+                            {% if messages %}
+                                {% for m in messages %}
+                                    <h4 class="h4">{{m}}</h4>
+                                {% endfor %}
+                                {% endif %}
+                            <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#upcoming-appointments" data-toggle="tab">Total patients to cure</a>
+                                </li>
+                                
+                            </ul>
+                            <!-- /Appointment Tab -->
+                            
+                            <div class="tab-content">
+                                
+                                <!-- Upcoming Appointment Tab -->
+                                <div class="tab-pane show active" id="upcoming-appointments">
+                                    <div class="card card-table mb-0">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-center mb-0">
+                                                    
+                                                        <tr>
+                                                            <th>Doctor Name</th>
+                                                            <th>Appt Date</th>
+                                                            
+                                                            <th class="text-center">Paid Amount</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        {% for appointment in appointments %}
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{appointment.0.dp.url}}" alt="User Image"></a>
+                                                                    <a href="patient-profile.html">{{appointment.1.name}} </a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>{{appointment.2.date}} <span class="d-block text-info">{{appointment.2.slot}}</span></td>
+                                                            
+                                                            
+                                                            <td class="text-center">&#8377;{{appointment.0.price}}</td>
+                                                            <td><a target = "_blank" href ="{{appointment.2.meetUrl}}"><font color="green">Meeting Link</font></a></td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                </table>		
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Upcoming Appointment Tab -->
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}

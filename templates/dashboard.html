@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+        
+            <!-- Profile Sidebar -->
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                <div class="profile-sidebar">
+                    <div class="widget-profile pro-widget-content">
+                        <div class="profile-info-widget">
+                            <a href="#" class="booking-doc-img">
+                                <img src="{{patient.dp.url}}" alt="User Image">
+                            </a>
+                            <div class="profile-det-info">
+                                <h3>{{patient.userD.name}}</h3>
+                                <div class="patient-details">
+                                    <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patient.state}}, {{patient.country}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-widget">
+                        <nav class="dashboard-menu">
+                            <ul>
+                                <li class="active">
+                                    <a href="#">
+                                        <i class="fas fa-columns"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'patient-appointment' %}">
+                                        <i class="fas fa-lock"></i>
+                                        <span>My Appointments</span>
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="change-password.html">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Change Password</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /Profile Sidebar -->
+            
+            <div class="col-md-7 col-lg-8 col-xl-9">
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <!-- Profile Settings Form -->
+                        <form method="POST" action="{% url 'dashboard'  %}" enctype="multipart/form-data" >
+                            {% csrf_token %}
+                            <div class="row form-row">
+                                <div class="col-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="change-avatar">
+                                            <div class="profile-img">
+                                                <img src="{{patient.dp.url}}" alt="User Image">
+                                            </div>
+                                            <div class="upload-img">
+                                                <div class="change-photo-btn">
+                                                    <span><i class="fa fa-upload"></i> Upload Photo</span>
+                                                    <input type="file" name="dp" class="upload">
+                                                </div>
+                                                <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" value="{{userD.name}}" readonly>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Email ID</label>
+                                        <input type="email" class="form-control" value="{{userD.user.email}}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        <input type="text" value="{{patient.phone}}" name="phone" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input type="text" class="form-control" value="{{patient.state}}" name = "state">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input type="text" class="form-control" value="{{patient.country}}" name="country">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-section">
+                                <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                            </div>
+                        </form>
+                        <!-- /Profile Settings Form -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}
+
+
+<!--patient , userD-->

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            
+                
+            
+            <div class="col-md-12 col-lg-12 col-xl-12">
+
+                
+
+                
+                <!-- Basic Information -->
+                <form action = "{% url 'book-slot' docD.user.username %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Book Your Slot</h4>
+                        <div class="row form-row">
+                            
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    
+                                    <label>Select Date <span class="text-danger">*</span></label>
+                                    <input type="date" name = "date" class="form-control"   >
+
+                                
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <br>
+                                    <div class="submit-section submit-btn-bottom">
+                                        <button type="submit" class="btn btn-primary submit-btn">Get Available Slots</button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Select Appointment</label>
+                                    <select name="gender" value="{{docD.gender}}" class="form-control select" required>
+                                        <option>Select</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+                <!-- /Basic Information -->
+                
+                
+
+                
+
+                
+                
+                
+                
+                
+                <!-- <div class="submit-section submit-btn-bottom">
+                    <button type="submit" class="btn btn-primary submit-btn">Fix Appointment</button>
+                </div>
+             -->
+                
+                
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}

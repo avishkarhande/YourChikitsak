@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Home Banner -->
+<div class="pharmacy-home-slider">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                  <img src="{% static 'assets/img/slide1.jpg' %}" alt="">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{% static 'assets/img/slide2.jpg' %}" alt="">
+              </div>
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="banner-wrapper">
+            <div class="banner-header text-center">
+                <h1>Search Doctor, Make an Appointment</h1>
+                <p>Discover the best doctors, clinic & hospital the city nearest to you.</p>
+            </div>
+            <!-- Search -->
+            
+        </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+<!-- /Home Banner -->
+
+<section class="section home-tile-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9 m-auto">
+                <div class="section-header text-center">
+                    <h2>What are you looking for?</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mb-3">
+                        <div class="card text-center doctor-book-card">
+                            <img src="{% static 'assets/img/doctors/doctor-07.jpg' %}" alt="" class="img-fluid">
+                            <div class="doctor-book-card-content tile-card-content-1">
+                                <div>
+                                    <h3 class="card-title mb-0">Visit a Doctor</h3>
+                                    <a href="search.html" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <div class="card text-center doctor-book-card">
+                            <img src="{% static 'assets/img/img-pharmacy1.jpg' %}" alt="" class="img-fluid">
+                            <div class="doctor-book-card-content tile-card-content-1">
+                                <div>
+                                    <h3 class="card-title mb-0">Find a Pharmacy</h3>
+                                    <a href="pharmacy-search.html" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">Coming Soon</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <div class="card text-center doctor-book-card">
+                            <img src="{% static 'assets/img/lab-image.jpg' %}" alt="" class="img-fluid">
+                            <div class="doctor-book-card-content tile-card-content-1">
+                                <div>
+                                <h3 class="card-title mb-0">Find a Lab</h3>
+                                    <a href="javascript:void(0);" class="btn book-btn1 px-3 py-2 mt-3" tabindex="0">Coming Soon</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+<!-- Clinic and Specialities -->
+<section class="section section-specialities">
+    <div class="container-fluid">
+        <div class="section-header text-center">
+            <h2>Clinic and Specialities</h2>
+            <p class="sub-title">The Specialists we provide </p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <!-- Slider -->
+                <div class="specialities-slider slider">
+                
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTimwg9uvvtQPuh2vv6tdA1h0-bHpkjrEwabw&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>
+                        <p>Pediatric</p>
+                    </div>	
+                    <!-- /Slider Item -->
+                    
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSitFyglTMt3CKg8lVmc87kqPqLCG_Ur85Ogw&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>
+                        <p>Psychiatrist</p>	
+                    </div>							
+                    <!-- /Slider Item -->
+                    
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwcL7gN0z_PHSeiIFTsJflJv2CfZn_EDD7w&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>	
+                        <p>Dermatologist</p>	
+                    </div>							
+                    <!-- /Slider Item -->
+                    
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5LBdeJsXWMTQ7jHIxqWW_YMWrePGTr4vcDA&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>	
+                        <p>ENT Speacialist</p>	
+                    </div>							
+                    <!-- /Slider Item -->
+
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0c8cYKfjjtL1Ndxh7EIYyINWhCanfcwDfjQ&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>	
+                        <p>Nutritionist</p>	
+                    </div>							
+                    <!-- /Slider Item -->
+                    
+                    <!-- Slider Item -->
+                    <div class="speicality-item text-center">
+                        <div class="speicality-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuWsH594F9AqoKK4RQi5u_vZaSspuECWzglw&usqp=CAU" class="img-fluid" alt="Speciality" style="border-radius: 50%">
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        </div>	
+                        <p>General Physician</p>
+                    </div>							
+                    <!-- /Slider Item -->
+                    
+                </div>
+                <!-- /Slider -->
+                
+            </div>
+        </div>
+    </div>   
+</section>	 
+<!-- Clinic and Specialities -->
+
+
+
+{% endblock %}
