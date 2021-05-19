@@ -65,12 +65,6 @@
                                 </li>
                                 
                                 <li>
-                                    <a href=" url 'doctor-change-password' ">
-                                        <i class="fas fa-lock"></i>
-                                        <span>Change Password</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="{% url 'logout' %}">
                                         <i class="fas fa-sign-out-alt"></i>
                                         <span>Logout</span>
@@ -93,11 +87,11 @@
                             <div class="card-body">
                                 <div class="pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="patient-profile.html" class="booking-doc-img">
+                                        <a href="#" class="booking-doc-img">
                                             <img src="{% static 'assets/img/patients/patient.jpg' %}" alt="User Image">
                                         </a>
                                         <div class="profile-det-info">
-                                            <h3><a href="patient-profile.html">{{patient.patient.userD.name}}</a></h3>
+                                            <h3><a href="#">{{patient.patient.userD.name}}</a></h3>
                                             <div class="patient-details">
                                                 <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patient.patient.state}}, {{patient.patient.country}}</h5>
                                             </div>

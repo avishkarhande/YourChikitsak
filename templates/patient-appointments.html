@@ -37,7 +37,7 @@
                         <nav class="dashboard-menu">
                             <ul>
                                 <li >
-                                    <a href="#">
+                                    <a href="{% url 'dashboard' %}">
                                         <i class="fas fa-columns"></i>
                                         <span>Dashboard</span>
                                     </a>
@@ -49,12 +49,6 @@
                                     </a>
                                 </li>
                                 
-                                <li>
-                                    <a href="change-password.html">
-                                        <i class="fas fa-lock"></i>
-                                        <span>Change Password</span>
-                                    </a>
-                                </li>
                                 <li>
                                     <a href="{% url 'logout' %}">
                                         <i class="fas fa-sign-out-alt"></i>
@@ -107,9 +101,11 @@
                                                             <th>Appt Date</th>
                                                             
                                                             <th class="text-center">Paid Amount</th>
-                                                            <th></th>
+                                                            <th>Prescription</th>
+                                                            <th>Link</th>
                                                         </tr>
                                                         {% for appointment in appointments %}
+                                                        
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
@@ -121,6 +117,7 @@
                                                             
                                                             
                                                             <td class="text-center">&#8377;{{appointment.0.price}}</td>
+                                                            <td class="text-center"><a href="{% url 'patient-prescription' appointment.0.user.username %}"><font color="green">View Prescription</font></a></td>
                                                             <td><a target = "_blank" href ="{{appointment.2.meetUrl}}"><font color="green">Meeting Link</font></a></td>
                                                         </tr>
                                                         {% endfor %}

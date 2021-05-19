@@ -12,6 +12,7 @@
             <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
             
                 <!-- Search Filter -->
+                <form method="get" action="{% url 'search' %}">
                 <div class="card search-filter">
                     <div class="card-header">
                         <h4 class="card-title mb-0">Search Filter</h4>
@@ -23,47 +24,48 @@
                         <h4>Select Specialist</h4>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist" checked>
-                                <span class="checkmark"></span> Urology
+                                <input type="checkbox" name="query" value="pediatrician">
+                                <span class="checkmark"></span> Pediatrician
                             </label>
                         </div>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist" checked>
-                                <span class="checkmark"></span> Neurology
+                                <input type="checkbox" name="query" value="psychiatrist">
+                                <span class="checkmark"></span> Psychiatrist
                             </label>
                         </div>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist">
-                                <span class="checkmark"></span> Dentist
+                                <input type="checkbox" name="query" value="dermatologist">
+                                <span class="checkmark"></span> Dermatologist
                             </label>
                         </div>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist">
-                                <span class="checkmark"></span> Orthopedic
+                                <input type="checkbox" name="query" value="ent specialist">
+                                <span class="checkmark"></span> ENT Specialist
                             </label>
                         </div>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist">
-                                <span class="checkmark"></span> Cardiologist
+                                <input type="checkbox" name="query" value="nutritionist">
+                                <span class="checkmark"></span> Nutritionist
                             </label>
                         </div>
                         <div>
                             <label class="custom_check">
-                                <input type="checkbox" name="select_specialist">
-                                <span class="checkmark"></span> Cardiologist
+                                <input type="checkbox" name="query" value="general physician">
+                                <span class="checkmark"></span> General Physician
                             </label>
                         </div>
                     </div>
                         <div class="btn-search">
-                            <button type="button" class="btn btn-block">Search</button>
+                            <button type="submit" class="btn btn-block">Search</button>
                         </div>	
                     </div>
                 </div>
                 <!-- /Search Filter -->
+            </form>
                 
             </div>
             
@@ -82,14 +84,9 @@
                                     </a>
                                 </div>
                                 <div class="doc-info-cont">
-                                    <h4 class="doc-name"><a href="{% url 'docprofile' d.1.user.username %}">{{d.0.name}}  <font size="2px" color="#0de0fe"> {% if d.1.is_verified %} <img alt="verified" src="{% static 'assets/img/tick.png' %}" width="50px" height = "35px"> {% else %} ( Not Verified ) {% endif %}</font></a></h4>
+                                    <h4 class="doc-name"><a href="{% url 'docprofile' d.1.user.username %}">{{d.0.name}}  <font size="2px" color="#0de0fe"> {% if d.1.is_verified %} <img alt="verified" src="{% static 'assets/img/tick.png' %}" width="40px" height = "30px" style="margin-top:-10px;"> {% else %} ( Not Verified ) {% endif %}</font></a></h4>
                                     <p class="doc-speciality">{{d.1.Specialization}}</p>
                                     
-                                    <div class="rating">
-                                        
-                                        <span class="d-inline-block average-rating">Rating (17)</span>
-                                    </div>
-                                    <br>
                                     <div class="clinic-services">
                                         {% for service in d.2 %}
                                             <span>{{service}}</span>
@@ -100,8 +97,6 @@
                             <div class="doc-info-right">
                                 <div class="clini-infos">
                                     <ul>
-                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
-                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
                                         <li><i class="fas fa-map-marker-alt"></i> {{d.1.state}}, {{d.1.country}} </li>
                                         <li><i class="far fa-money-bill-alt"></i> &#8377;{{d.1.price}} <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
                                     </ul>

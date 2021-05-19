@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+            
+                <form method="get" action="{% url 'search' %}">
+                    <div class="card search-filter">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Search Filter</h4>
+                        </div>
+                        <div class="card-body">
+                        
+                        
+                        <div class="filter-widget">
+                            <h4>Select Specialist</h4>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="pediatrician">
+                                    <span class="checkmark"></span> Pediatrician
+                                </label>
+                            </div>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="psychiatrist">
+                                    <span class="checkmark"></span> Psychiatrist
+                                </label>
+                            </div>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="dermatologist">
+                                    <span class="checkmark"></span> Dermatologist
+                                </label>
+                            </div>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="ent specialist">
+                                    <span class="checkmark"></span> ENT Specialist
+                                </label>
+                            </div>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="nutritionist">
+                                    <span class="checkmark"></span> Nutritionist
+                                </label>
+                            </div>
+                            <div>
+                                <label class="custom_check">
+                                    <input type="checkbox" name="query" value="general physician">
+                                    <span class="checkmark"></span> General Physician
+                                </label>
+                            </div>
+                        </div>
+                            <div class="btn-search">
+                                <button type="submit" class="btn btn-block">Search</button>
+                            </div>	
+                        </div>
+                    </div>
+                    <!-- /Search Filter -->
+                </form>
+                
+            </div>
+            
+            <div class="col-md-12 col-lg-8 col-xl-9">
+                {% if doctors %}
+                    <h4>Showing Results For : {{query}}</h4>
+                {% for d in doctors %}
+                
+                <!-- Doctor Widget -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="doctor-widget">
+                            <div class="doc-info-left">
+                                <div class="doctor-img">
+                                    <a href="{% url 'docprofile' d.1.user.username %}">
+                                        <img src="{{d.1.dp.url}}" class="img-fluid" alt="User Image">
+                                    </a>
+                                </div>
+                                <div class="doc-info-cont">
+                                    <h4 class="doc-name"><a href="{% url 'docprofile' d.1.user.username %}">{{d.0.0.name}}  <font size="2px" color="#0de0fe"> {% if d.1.is_verified %} <img alt="verified" src="{% static 'assets/img/tick.png' %}" width="40px" height = "30px" style="margin-top:-10px;"> {% else %} ( Not Verified ) {% endif %}</font></a></h4>
+                                    <p class="doc-speciality">{{d.1.Specialization}}</p>
+                                    
+                                    <div class="clinic-services">
+                                        {% for service in d.2 %}
+                                            <span>{{service}}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="doc-info-right">
+                                <div class="clini-infos">
+                                    <ul>
+                                        <li><i class="far fa-thumbs-up"></i> 98%</li>
+                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
+                                        <li><i class="fas fa-map-marker-alt"></i> {{d.1.state}}, {{d.1.country}} </li>
+                                        <li><i class="far fa-money-bill-alt"></i> &#8377;{{d.1.price}} <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
+                                    </ul>
+                                </div>
+                                <div class="clinic-booking">
+                                    <a class="view-pro-btn" href="{% url 'docprofile' d.1.user.username %}">View Profile</a>
+                                    <a class="apt-btn" href="{% url 'book-slot' d.1.user.username %}">Book Appointment</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Doctor Widget -->
+                {% endfor %}
+
+                {% else %}
+                    <h4>No Doctors Found</h4>
+
+                {% endif %}
+                
+
+                	
+            </div>
+        </div>
+
+    </div>
+
+</div>		
+<!-- /Page Content -->
+
+{% endblock %}

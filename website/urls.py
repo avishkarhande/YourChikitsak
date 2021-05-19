@@ -40,4 +40,9 @@ urlpatterns = [
     path('addmeeting/<slug:slug>', views.addMeeting, name="addmeeting"),
     path('redirecta/', views.redirecta, name="redirecta"),
     path('patient-appointment/', views.patient_appointment, name="patient-appointment"),
+    path('add-prescription/<slug:slug>', views.add_prescription, name="add-prescription"),
+    path('view-prescription/<slug:slug>', views.view_prescription, name="view-prescription"),
+    path('patientprescription/<slug:slug>', views.patientprescription, name="patient-prescription"),
+    path('delete/<int:id>', views.delete_appointment, name="delete-appointment"),
+    path('search', views.search, name="search"),
 ]

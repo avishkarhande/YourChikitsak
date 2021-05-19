@@ -5,6 +5,7 @@ import uuid
 from io import BytesIO
 from django.core.files import File
 from django.core.files.base import ContentFile
+from django.utils import timezone
 
 # Create your models here.
 class UserDetails(models.Model):
@@ -80,3 +81,11 @@ class allPatients(models.Model):
     id = models.AutoField(primary_key=True)
     doctor = models.ForeignKey(User, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientDetails, on_delete=models.CASCADE)
+
+class Prescription(models.Model):
+    id = models.AutoField(primary_key=True)
+    doctor = models.ForeignKey(DoctorDetails, on_delete=models.CASCADE)
+    patient = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(default=timezone.now)
+    medicine = models.CharField(default='',blank=True, null=True, max_length=256)
+    quantity = models.CharField(default='',blank=True, null=True, max_length=256)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from website.models import UserDetails, DoctorDetails, Work, Slot, Zoom, allPatients, PatientDetails
+from website.models import UserDetails, DoctorDetails, Work, Slot, Zoom, allPatients, PatientDetails, Prescription
 
 # Register your models here.
 
@@ -26,3 +26,5 @@ admin.site.register(Zoom)
 admin.site.register(allPatients)
 
 admin.site.register(PatientDetails)
+
+admin.site.register(Prescription)

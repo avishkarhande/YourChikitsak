@@ -2,7 +2,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from website.models import UserDetails, DoctorDetails, Work, Slot, Zoom, PatientDetails, allPatients
+from website.models import UserDetails, DoctorDetails, Work, Slot, Zoom, PatientDetails, allPatients, Prescription
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -276,8 +276,8 @@ def addappointment(request, slug):
 def zoom_callback(request):
     code = request.GET["code"]
     print(code)
-    data = requests.post(f"https://zoom.us/oauth/token?grant_type=authorization_code&code={code}&redirect_uri=http://127.0.0.1:8000/zoom/callback/", headers={
-        "Authorization": "Basic " + base64_encode("Ft9VmHdcQSK9VkhHF6l6w:Ab04Axx97W8jDH2Y1vlplE768ImvE024"), "Content-Type": "application/json"
+    data = requests.post(f"https://zoom.us/oauth/token?grant_type=authorization_code&code={code}&redirect_uri=http://127.0.0.1:8000/zoom/callback", headers={
+        "Authorization": "Basic " + base64_encode("6EeTzSZ2TuewrzMLxhC_w:9hu4cJA93xsSoXqOOsQFZWxe8G8qdG3l"), "Content-Type": "application/json"
     })
     print(data.json())
     access_token = data.json()["access_token"]
@@ -314,7 +314,7 @@ def addMeeting(request, slug):
         print(zoom.refresh_token)
         dataa = requests.post("https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=" + zoom.refresh_token, headers={
             "content-type": "application/json",
-            "authorization": "Basic " + base64_encode("Ft9VmHdcQSK9VkhHF6l6w:Ab04Axx97W8jDH2Y1vlplE768ImvE024")
+            "authorization": "Basic " + base64_encode("6EeTzSZ2TuewrzMLxhC_w:9hu4cJA93xsSoXqOOsQFZWxe8G8qdG3l")
         })
 
         print("Second")
@@ -354,9 +354,8 @@ def addMeeting(request, slug):
             user = User.objects.get(username = slug)
             patient = UserDetails.objects.get(user = request.user)
             allpatient = PatientDetails.objects.get(userD = patient)
-            allpatient.save()
             name = User.objects.get(username = slug)
-            allist = allPatients.objects.filter(patient = allpatient).first()
+            allist = allPatients.objects.filter(doctor = name,patient = allpatient).first()
             if allist is None:
                 alllist = allPatients(doctor=name, patient=allpatient)
                 alllist.save()
@@ -392,6 +391,7 @@ def dashboardPatient(request):
         if 'dp' in request.FILES:
             pat.dp = request.FILES['dp']
         pat.save()
+        messages.success(request, "Information Updated Successfully")
         return redirect('dashboard')
 
 def patient_appointment(request):
@@ -408,3 +408,82 @@ def patient_appointment(request):
         list.append(n)
     context = {'appointments':list, 'patient':patient}
     return render(request, "patient-appointments.html", context)
+
+@login_required
+def add_prescription(request, slug):
+    if request.method == "POST":
+        medicine = request.POST['medicine']
+        quantity = request.POST['quantity']
+        patient = User.objects.get(username = slug)
+        doctor = DoctorDetails.objects.get(user = request.user)
+        prescription = Prescription(medicine=medicine, quantity=quantity, patient=patient, doctor = doctor)
+        prescription.save()
+        prescriptions = Prescription.objects.filter(patient = patient,doctor = doctor)
+        context = {'prescriptions':prescriptions, 'patient':patient}
+        return render(request, "add-prescription.html", context)
+    else:
+        doctor = DoctorDetails.objects.get(user = request.user)
+        patient = User.objects.get(username = slug)
+        patientDetails = PatientDetails.objects.get(user = patient)
+        prescriptions = Prescription.objects.filter(patient = patient, doctor=doctor)
+        context = {'prescriptions':prescriptions,'patient':patientDetails}
+        return render(request, "add-prescription.html", context)
+
+def view_prescription(request, slug):
+    patient = User.objects.get(username = slug)
+    doctor = DoctorDetails.objects.get(user = request.user)
+    docD = UserDetails.objects.get(user = request.user)
+    patientDetails = PatientDetails.objects.get(user = patient)
+    prescriptions = Prescription.objects.filter(patient = patient, doctor = doctor)
+    context = {'prescriptions':prescriptions,'patient':patientDetails, 'docD':docD}
+    return render(request, "view-prescription-doctor.html", context)
+
+def patientprescription(request, slug):
+    doc = User.objects.get(username = slug)
+    doctor = DoctorDetails.objects.get(user = doc)
+    docD = UserDetails.objects.get(user = doc)
+    patientDetails = PatientDetails.objects.get(user = request.user)
+    patient = User.objects.get(username = request.user.username)
+    prescriptions = Prescription.objects.filter(patient = patient, doctor = doctor)
+    context = {'prescriptions':prescriptions,'patient':patientDetails, 'docD':docD}
+    return render(request, "patient-prescription.html", context)
+
+def delete_appointment(request, id):
+    instance = Slot.objects.get(id = id)
+    instance.delete()
+    return redirect("appointments")
+    
+def search(request):
+    emp = request.GET['query']
+    l = emp.split(" ")
+    # queries = ""
+    # for ll in l:
+    #     queries += ll
+    doctors = []
+    final = ""
+    for query in l:
+        final += query
+        print("query")
+        print(query)
+        docDs = DoctorDetails.objects.filter(Specialization__icontains=query)
+        if docDs is not None:
+            for docD in docDs:
+                list = []
+                userDetails = UserDetails.objects.filter(user = docD.user)
+                list.append(userDetails)
+                list.append(docD)
+                new_list = docD.services.split(",")
+                list.append(new_list)
+                flag = 0
+                for d in doctors:
+                    if d[0][0].name == list[0][0].name:
+                        print(userDetails[0])
+                        flag = 1
+                if flag == 0:
+                    doctors.append(list)
+    # doctors = []
+    # for d in doctor:
+    #     if d not in doctors:
+    #         doctors.append(d)
+    context = {'doctors':doctors, 'query':emp}
+    return render(request, "search.html", context)

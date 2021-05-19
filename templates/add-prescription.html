@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+    .form-inline {  
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+    }
+    input[type="text"]{
+      width:500px;
+    }
+
+    button[type="submit"]{
+      margin-left:20px;
+    }
+    
+    .form-inline label {
+      margin: 5px 10px 5px 0;
+    }
+    
+    .form-inline input {
+      vertical-align: middle;
+      margin: 5px 10px 5px 0;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+    
+    .form-inline button {
+      padding: 10px 20px;
+      background-color: dodgerblue;
+      border: 1px solid #ddd;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .form-inline button:hover {
+      background-color: royalblue;
+    }
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      max-width: 300px;
+    }
+tr:first-child {
+  background-color: dodgerblue;
+  color:#fff;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+    
+    @media (max-width: 800px) {
+      .form-inline input {
+        margin: 10px 0;
+      }
+      
+      .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+    </style>
+    </head>
+    <body>
+    
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="card">
+            <div class="card-body">
+              <h4>Add Prescription for {{patient.userD.name}}</h4>
+                <form class="form-inline" action="" method="POST">
+                  {% csrf_token %}
+                  <input type="text" id="email" placeholder="Enter Medicine" name="medicine">
+                  <input type="text" id="pwd" placeholder="Enter Quantity" name="quantity">
+                  
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+          </div>
+          
+          <div class="card">
+            
+            <div class="card-body">
+              <h2>Prescription</h2><br>
+              <table>
+                <tr>
+                  <th>Name Of Medicine</th>
+                  <th>Quantity</th>
+                  <th>Date Added</th>
+                </tr>
+                {% for prescription in prescriptions %}
+                <tr>
+                  <td>{{prescription.medicine}}</td>
+                  <td>{{prescription.quantity}}</td>
+                  <td>{{prescription.date}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+              </div>
+              </div>
+
+        </div>
+
+  {% endblock %}
